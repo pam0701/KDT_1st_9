@@ -1,0 +1,1073 @@
+/* COMMON */
+body {
+    color: #333;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    font-family: 'Nanum Gothic', sans-serif;
+    height: 3000px;
+}
+
+/* 스타벅스 페이지에서 컨텐츠 파트는 inner 안에 포함 되므로
+커먼 클래스로 선언하여 반복 사용 */
+.inner {
+    position: relative;
+    width: 1100px;
+    margin: 0 auto;
+} 
+.strong{
+    font-weight: 800;
+}
+
+a{
+    text-decoration: none;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 20px; /* 위아래 8px 좌우 20px*/
+    box-sizing: border-box;
+    border: 2px solid currentColor; /*커런트 컬러는 부모가 가진 컬러값들을 가져와서 반영함*/
+    border-radius: 5px;
+}
+
+.btn--gold{
+    border: gold;
+    color: gold;
+    transition: 0.4s;
+}
+
+.btn--reverse{
+    background-color: #00704a;
+    border-color: #00704a;
+    color: white;
+}
+
+.btn--white{
+    border-color: white;
+    color: white;
+}
+
+
+.btn--light_green{
+    border-color: #00704a;
+    color: #00704a;
+    transition: 0.4s;
+}
+
+.btn--dark_green{
+    border-color: #1c3831;
+    color: #1c3831;
+    transition: 0.4s;
+}
+.btn--black{
+    color: #111111;
+    border-color: #000;
+    transition: 0.4s;
+}
+
+.btn--light_green:hover{
+    border-color: #00704a;
+    color: white;
+    text-decoration: underline;
+}
+.btn--reverse:hover{
+    text-decoration: underline;
+}
+
+.btn--white:hover{
+    text-decoration: underline;
+}
+
+.btn--dark_green:hover{
+    border-color: #1c3831;
+    color: white;
+    text-decoration: underline;
+}
+.btn--gold:hover{
+    color: white;
+    background-color: #694f16;
+}
+
+.btn--black:hover{
+    color: white;
+    background-color: #111111;
+    text-decoration: underline;
+}
+/* HEADER */
+header {
+    position: fixed;
+    width: 100%;
+    background-color: #f6f5ef;
+    border-bottom: 1px solid #c8c8c8;
+    top: 0;
+    z-index: 1;
+}
+
+/* inner 가 반복 사용 되므로, 후손 선택자일 경우 겹칠 수 있으므로
+직계 자손 선택자로 변경하여 문제를 미리 방지 */
+header>.inner {
+    background-color: #f6f5ef;
+    height: 120px;
+}
+
+header .inner .logo {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;    
+    margin: auto 0;
+    height: 75px;    
+}
+
+header .inner .logo img {
+    display: block;    
+}
+
+header .inner .sub_menu {
+    display: flex;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+
+header .inner .sub_menu .menu {
+    display: flex;    
+}
+
+header .inner .sub_menu .menu li {
+    line-height: 32px;
+}
+
+/* 가상 클래스(not, last-child) / 가상 요소 선택자 동시 사용 */
+header .inner .sub_menu .menu li:not(:last-child)::after {
+    content: "|";
+    font-size: 12px;
+    color: #c8c8c8;
+}
+
+header .inner .sub_menu .menu li a {
+    font-size: 12px;
+    color: #656565;
+    padding: 10px 15px;
+    text-decoration: none;
+}
+
+header .inner .sub_menu .menu li a:hover {
+    text-decoration: underline;
+}
+
+header .inner .search {
+    position: relative;
+}
+
+header .inner .search input {
+    width: 40px;
+    height: 34px;
+    transition: width 0.4s;
+    font-size: 16px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+header .inner .search input:focus {
+    width: 180px;  
+    outline-color: green;  
+}
+
+header .inner .search span {
+    position: absolute;
+    font-size: 24px;
+    height: 24px;
+    top: 0;
+    bottom: 0;
+    right: 3px;
+    margin: auto;
+}
+
+/* MAIN MENU */
+header .inner .main_menu {
+    display: flex;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+header .inner .main_menu .item {}
+
+header .inner .main_menu .item .item__name {
+    padding: 10px 20px 34px 20px;
+    font-size: 13px;
+}
+
+header .inner .main_menu .item:hover .item__name {
+    background-color: #2c2a29;
+    color: #669900;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+header .main_menu .item .item__contents {
+    /* fixed 를 주어, 뷰포트 전체의 넓이를 사용할 수 있도록 설정 */
+    position: fixed;
+    /* 넓이 100% 선언을 안하면 기존 부모의 크기를 받아오기 때문에 100% 선언하여 뷰포트 전체 넓이를 확보 */
+    width: 100%;
+    /* 기존 부모의 위치를 참고하므로 left: 0 으로 뷰포트 제일 왼쪽으로 위치 */
+    left: 0;
+    display: none;
+}
+
+/* 컨텐츠에 마우스가 올라간 상태에서도 hover 가 유지가 되어야 하므로
+item 전체에 hover 를 걸고 효과를 줄 요소를 뒤에 선택자로 선택 */
+header .main_menu .item:hover .item__contents {
+    display: block;
+}
+
+header .main_menu .item .item__contents .item__contents__menu {
+    background-color: #2c2a29;
+    padding: 20px 0px;
+    width: 100%;    
+}
+
+header .main_menu .item .item__contents .item__contents__menu .inner {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* 요소 내부에 ul, li 태그 중첩이 반복 되므로, 후손 선택자 사용 시 직계가 아닌 요소 까지 선택이 되므로
+직계 자손 선택자를 사용하여 안전하게 처리 */
+header .main_menu .item .item__contents .item__contents__menu .inner>li {
+    width: 200px;
+    padding: 0 20px 0 0;
+}
+
+header .main_menu .item .item__contents .item__contents__menu .inner>li>a {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+header .main_menu .item .item__contents .item__contents__menu .inner>li>a:hover {
+    text-decoration: underline;
+}
+
+header .main_menu .item .item__contents .item__contents__menu .inner>li>ul {}
+
+header .main_menu .item .item__contents .item__contents__menu .inner>li>ul>li {
+    font-size: 12px;
+    color: #999;
+    margin: 5px 0;
+}
+
+header .main_menu .item .item__contents .item__contents__menu .inner>li>ul>li:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+header .main_menu .item .item__contents .item__contents__additional {
+    background-image: url("../images/main_menu_pattern.jpg");    
+    padding: 20px 0;
+    width: 100%;   
+}
+
+header .main_menu .item .item__contents .item__contents__additional .inner {}
+
+header .main_menu .item .item__contents .item__contents__additional .inner>a {
+    display: block;
+    font-size: 12px;
+    color: #999;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+header .main_menu .item .item__contents .item__contents__additional .inner>a:hover {
+    text-decoration: underline;
+}
+
+header .main_menu .item .item__contents .item__contents__additional .inner>p {
+    font-size: 12px;
+    color: #669900;
+}
+
+/* BADGES */
+header .badges {
+    position: absolute;
+    top: 150px;
+    right: 20px;
+}
+
+header .badges .badge {}
+
+header .badges .badge>a{}
+
+header .badges .badge>a>img{}
+
+
+/* VISUAL */
+.visual {
+    background-image: url("../images/visual_bg.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;    
+    margin-top: 120px;
+}
+
+.visual .inner {
+    /* 이미지를 모두 absolute 로 처리할 것이기 때문에 이미지들의 기준점을 되기 위해서
+    미리 inner 에 position: relative; 선언 */
+    position: relative;
+    height: 646px;
+}
+
+.visual .inner .slogan {
+    position: absolute;
+    top: 88px;
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.visual .inner .slogan>img {}
+
+.visual .inner .slogan>.btn {
+    display: block;
+    /* border: 2px solid #1c3831; */
+    /* border-radius: 3px; */
+    width: 130px;
+    height: 38px;
+    /* box-sizing: border-box;
+    text-align: center; */
+    line-height: 38px;
+    color: #1c3831;
+    text-decoration: none;
+    margin-top: 30px;
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.visual .inner .slogan>.btn:hover {
+    color: white;
+    text-decoration: underline;
+    background-color: #1c3831;
+    font-weight: bold;
+}
+
+.visual .inner .image {}
+
+.visual .inner .image.item_1 {
+    position: absolute;
+    width: 260px;
+    top: 88px;
+    right: 210px;
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.visual .inner .image.item_2 {
+    position: absolute;
+    width: 590px;
+    top: 200px;
+    left: 30px;
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.visual .inner .image.item_3 {
+    position: absolute;
+    width: 370px;
+    bottom: 50px;
+    right: -120px;
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.visual .inner:hover .image.item_1 {
+    opacity: 1;
+    /* 트랜지션 딜레이를 통해 순차적으로 보일 수 있도록 처리 */
+    transition-delay: 0.4s;
+}
+
+.visual .inner:hover .image.item_2 {
+    opacity: 1;
+    /* 트랜지션 딜레이를 통해 순차적으로 보일 수 있도록 처리 */
+    transition-delay: 0.8s;
+}
+
+.visual .inner:hover .image.item_3 {
+    opacity: 1;
+    /* 트랜지션 딜레이를 통해 순차적으로 보일 수 있도록 처리 */
+    transition-delay: 1.2s;
+}
+
+.visual .inner:hover .slogan {
+    opacity: 1;
+}
+
+.visual .inner:hover .slogan .btn {
+    opacity: 1;
+    /* 트랜지션 딜레이를 통해 순차적으로 보일 수 있도록 처리 */
+    transition-delay: 1.6s;
+}
+/* NOTICE */
+.notice{}
+
+.notice .notice_line{
+    /* bg.left와 bg.right의 부모역할을 해줘야하기 때문 */
+    position: relative;
+}
+
+.notice .notice_line .bg_left{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-color: #111111;
+}
+
+.notice .notice_line .bg_right{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background-color: #f6f5ef;
+}
+
+.notice .notice_line .inner{
+    height: 62px;
+    display: flex;
+}
+
+.notice .notice_line .inner .inner_left{
+    position: relative;
+    width: 60%;
+    height: 100%;
+    background-color: #111111;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.notice .notice_line .inner .inner_left h1{
+    font-weight: bold;
+    position: absolute;
+    left: 0; /*이너의 제일 왼쪽에 붙어라*/
+}
+
+.notice .notice_line .inner .inner_left .swiper_container{
+    position: absolute;
+    left: 80px;
+    flex-grow: 1;
+     /* 일정 영역만큼 늘어나겠다 */
+    font-size: 14px;
+}
+
+.notice .notice_line .inner .inner_left a{
+    position: absolute;
+    right: 20px;
+    color: white;
+}
+
+.notice .notice_line .inner .inner_left a span{
+    /* 스팬태그 크기조절은 폰트 사이즈로 함 */
+    /* 스팬태그는 글자이므로 버티컬 얼라인의 기본 속성이 baseline임  */
+    font-size: 36px;
+    vertical-align: bottom;
+}
+
+.notice .notice_line .inner .inner_right{
+    position: relative;
+    width: 40%;
+    height: 100%;
+    background-color: #f6f5f6;
+    display: flex;
+    align-items: center;
+    color: #111111;
+}
+
+.notice .notice_line .inner .inner_right h1{
+    position: absolute;
+    font-weight: bold;
+    right: 180px;
+}
+
+.notice .notice_line .inner .inner_right a{
+    position: absolute;
+    right: 60px;
+    color: #111111;
+}
+
+.notice .notice_line .inner .inner_right a span {
+    font-size: 36px;
+    vertical-align: bottom;
+}
+
+/* REWARDS */
+.rewards{
+    background-color: #1e3932;
+}
+
+.rewards .inner{
+    padding: 30px 0 40px 0;
+    display: flex;
+    gap: 20px; /* margin gap의 차이점은 gap의 경우 엘리먼트 요소들의 사이에만 공간(space)을 만든다는 점 */
+}
+
+.rewards .inner > a{}
+
+.rewards .inner > a > img {
+    width: 176px;
+    display: block;
+}
+
+.rewards .inner .rewards__items{
+    flex-grow: 1;    /*로고랑 갭을 제외한 공간만큼 공간을 차지하게 됨*/
+
+}
+
+.rewards .inner .rewards__items .rewards__items__register{
+    position: relative;
+    box-shadow: 0 0.5px #c8c8c8;
+    padding: 0 0 12px 0; /*상좌하우*/
+}
+
+.rewards .inner .rewards__items .rewards__items__register p{
+    display: block;
+    font-size: 17px;
+    color: white;
+}
+
+/* +10점이 되는 아이이기 때문에 아래 선택자가 우선이 된다 */
+.rewards .inner .rewards__items .rewards__items__register p.subject{
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.rewards .inner .rewards__items .rewards__items__register .buttons{
+    position: absolute;
+    right: 0;
+    bottom: 12px;
+}
+
+.rewards .inner .rewards__items .rewards__items__card{
+    position: relative;
+    padding-top: 20px;
+}
+
+.rewards .inner .rewards__items .rewards__items__card p{
+    font-size: 14px;
+    color: white;
+}
+
+.rewards .inner .rewards__items .rewards__items__card .buttons{
+    position: absolute;
+    right: 0;
+    top: 20px;
+}
+
+/* PERU  */
+.peru{
+    position: relative;
+    background-image: url(../images/peru_bg.jpg);
+    height: 570px;
+    overflow: hidden;
+}
+/* 호랑이 */
+.peru::before{
+    content: ""; /*가상 요소 선택자에 content는 무조건 선언해주어야 함*/
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: block;
+    background-image: url("../images/peru_bg_left.png");
+    background-size: cover; /*이미지를 긴 축에 맞춤*/
+    background-repeat: no-repeat;
+    width: 400px;
+    height: 370px;
+}
+/* 새 */
+.peru::after{
+    content: ""; /*가상 요소 선택자에 content는 무조건 선언해주어야 함*/
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: block;
+    background-image: url("../images/peru_bg_right.png");
+    background-size: cover; /*이미지를 긴 축에 맞춤*/
+    background-repeat: no-repeat;
+    width: 380px;
+    height: 390px;
+}
+
+.peru .inner{
+    height: 700px;
+}
+
+.peru .inner > .img_product{
+    display: block;
+    position: absolute;
+    width: 281px;
+    top: 130px;
+    left: 290px;
+    transform: translate(-500px, 0); /*처음에 고정된 값으로 밖에 숨겨놓다가 효과가 작동되면 등장*/
+    transition: 2.5s;
+    opacity: 0;
+}
+.peru .inner:active > .img_product{
+    transform: translate(0px, 0);
+    opacity: 1;
+}
+
+
+.peru .inner .peru__contents{
+    position: absolute;
+    top: 160px;
+    right: 30px;
+    transform: translate(500px, 0);
+    transition: 2.5s;
+    opacity: 0;
+    z-index: 1;
+}
+
+.peru .inner:active .peru__contents{
+    transform: translate(0px, 0);
+    opacity: 1;
+}
+
+.peru .inner .peru__contents > img{
+    width: 427px;
+}
+
+.peru .inner .peru__contents .btn{
+    display: block;
+    width: 125px;
+    margin-top: 40px;
+}
+
+/* INDONESIA */
+.indonesia{
+    position: relative;
+    background-image: url("./images/indonesia_bg.jpg");
+    height: 400px;
+    overflow: hidden;
+}
+
+
+.indonesia::before{
+    content: ""; /*가상 요소 선택자에 content는 무조건 선언해주어야 함*/
+    position: absolute;
+    bottom: 0;
+    left: -200px;
+    background-image: url("./images/indonesia_bg_left.png");
+    background-size: cover; /*이미지를 긴 축에 맞춤*/
+    background-repeat: no-repeat;
+    width: 373px;
+    height: 277px;
+}
+.indonesia::after{
+    content: ""; /*가상 요소 선택자에 content는 무조건 선언해주어야 함*/
+    position: absolute;
+    right: -380px;
+    bottom: 0;
+    background-image: url("./images/indonesia_bg_right.png");
+    background-size: cover; /*이미지를 긴 축에 맞춤*/
+    background-repeat: no-repeat;
+    width: 563px;
+    height: 305px;
+}
+
+.indonesia .inner{}
+
+.indonesia .inner .indonesia__img{
+    position: absolute;
+    top: 0;
+    left: -300px;
+    transition: 1.5s;
+    opacity: 1;
+}
+
+.indonesia .inner .indonesia__title{
+    position: absolute;
+    top: 120px;
+    left: 200px;
+}
+
+.indonesia .inner .btn.btn--gold{
+    display: block;
+    width: 130px;
+}
+
+.indonesia .inner>active .indonesia__image{
+    opacity: 1;
+}
+
+.indonesia .inner>active .indonesia__title{
+    opacity: 1;
+}
+
+/* FAVORITE */
+.favorite{
+    position: relative;
+    background-image: url("./images/fav_bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 800px;
+    overflow: hidden;
+}
+
+.favorite .inner{
+    height: 800px;
+}
+
+.favorite .inner .favorite__title_1{
+    position: absolute;
+    width: 258px;
+    top: 120px;
+    left: 108px;
+    transform: translate(-600px, 0);
+    transition: 2s;
+    opacity: 0;
+}
+
+.favorite .inner .favorite__title_2{
+    position: absolute;
+    width: 362px;
+    top: 370px;
+    transform: translate(-600px, 0);
+    transition: 2.5s;
+    opacity: 0;
+}
+
+.favorite .inner:hover .favorite__title_1, 
+.favorite .inner:hover .favorite__title_2{
+    transform: translate(0px, 0);
+}
+
+
+.favorite .inner .favorite__img{
+    position: absolute;
+    top: 120px;
+    right: -120px;
+}
+.favorite .inner .btn.btn--white{
+    position: absolute;
+    top: 580px;
+    left: 238px;
+    opacity: 0;
+    transition: 1.5s;
+}
+.favorite .inner:hover .btn.btn--white{
+    opacity: 1;
+    background-color: white;
+}
+
+/* MAGAZINE */
+.magazine{
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+}
+
+.magazine .inner{
+    /* background-image: url("./images/magazine_bg.png");
+    background-repeat: no-repeat;
+    background-size: 1500px;
+    height: 352px;
+    width: 1500px;
+    margin-top: 50px; */
+
+    background: bottom;
+    background-image: url("./images/magazine_bg.png");
+    background-repeat: no-repeat;
+    background-size: 1538px;
+    height: 352px;
+    width: 1500px;
+    margin-top: 50px;
+    background-size: cover;
+}
+
+.magazine .inner .magazine_title{
+    position: absolute;
+    top: 80px;
+    left: 100px;
+}
+
+.magazine .magazine_img{
+    position: absolute;
+    height: 380px;
+    top: 0px;
+    right: 350px;
+    transition: 1.4s;
+    opacity: 1;
+    z-index: 1;
+}
+
+.magazine .inner .btn.btn--black{
+    position: absolute;
+    display: block;
+    top: 200px;
+    left: 400px;
+}
+
+.magazine:active .img{
+    opacity: 1;
+}
+
+/* STORE */
+.store{
+    position: relative;
+    background-image: url("./images/store_bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+
+}
+
+.store .inner{
+    height: 400px;
+}
+
+.store .inner .store_img1{
+    position: absolute;
+    left: 300px;
+    top: 100px;
+    z-index: 1;
+    opacity: 0;
+    transition: 1.4s;
+}
+
+.store .inner .store_img2{
+    position: absolute;
+    opacity: 0;
+    transition: 1.4s;
+
+}
+
+.store .inner:hover .store_img1{
+    opacity: 1;
+}
+
+.store .inner:hover .store_img2{
+    opacity: 1;
+}
+.store .inner .store_img3{
+    position: absolute;
+    top: -60px;
+    left: 420px;
+
+}
+
+.store .inner .store_img4{
+    position: absolute;
+    display: block;
+    margin: 0 auto;
+    bottom: 0;
+    right: -100px;
+    
+}
+
+.store .inner .store_title1{
+    position: absolute;
+    top: 95px;
+    right: 80px;
+    display: block;
+    transform: translate(700px, 0);
+    transition: 0.8s;
+
+}
+
+.store .inner .store_title2{
+    position: absolute;
+    top: 165px;
+    right: 90px;
+    display: block;
+    transform: translate(700px, 0);
+    transition: 1.2s;
+}
+
+.store .inner .btn.btn--black{
+    position: absolute;
+    display: block;
+    top: 250px;
+    right: 340px;
+    transform: translate(700px, 0);
+    transition: 1.6s;
+}
+
+.store .inner:hover .store_title1{
+    transform: translate(0px, 0);
+
+}
+
+.store .inner:hover .store_title2{
+    transform: translate(0px, 0);
+}
+
+.store .inner:hover .btn.btn--black{
+    transform: translate(0px, 0);
+}
+
+/* FOOTER */
+.footer{
+    position: relative;
+    background-color: #2C2A29;
+    overflow: hidden;
+    height: 550px;
+}
+
+.footer .inner{
+    height: 300px;
+    left: -70px;
+}
+
+.footer .inner .item__contents {
+    position: absolute;
+    width: 100%;
+    /* 기존 부모의 위치를 참고하므로 left: 0 으로 뷰포트 제일 왼쪽으로 위치 */
+    left: 0;
+}
+
+
+.footer .inner .item__contents .item__contents__menu {
+    background-color: #2c2a29;
+    padding: 20px 0px;
+    width: 100%;    
+}
+
+.footer .inner .item__contents .item__contents__menu .inner__list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* 요소 내부에 ul, li 태그 중첩이 반복 되므로, 후손 선택자 사용 시 직계가 아닌 요소 까지 선택이 되므로
+직계 자손 선택자를 사용하여 안전하게 처리 */
+.footer .item__contents .item__contents__menu .inner__list>li {
+    width: 200px;
+    padding: 0 20px 0 0;
+}
+
+.footer .item__contents .item__contents__menu .inner__list>li>a {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.footer .inner .item__contents .item__contents__menu .inner__list>li>a:hover {
+    text-decoration: underline;
+}
+
+.footer .inner .item__contents .item__contents__menu .inner__list>li>ul {}
+
+.footer .inner .item__contents .item__contents__menu .inner__list>li>ul>li {
+    font-size: 12px;
+    color: white;
+    margin: 5px 0;
+}
+
+.footer .inner .item__contents .item__contents__menu .inner__list>li>ul>li>a{
+    font-size: 12px;
+    color: white;
+}
+
+.footer .inner .item__contents .item__contents__menu .inner__list>li>ul>li:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* FOOTER_SLIDER */
+.footer_logo_wrap{
+    position: relative;
+    background-color: #282828;
+    padding: 10px;
+    z-index: 1;
+    top: 0;
+    width: 100%;
+}
+
+.footer_logo_wrap .inner{
+    height: 80px;
+}
+
+.footer_logo_wrap .inner .footer_slider{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.footer_logo_wrap .inner .footer_slider .li{
+    width: 70px;
+    left: 0;
+}
+
+.footer_logo_wrap .inner .footer_slider .li >a{
+    margin-bottom: 15px;
+}
+
+.footer_logo_wrap .inner .footer_slider .li >a >img{
+    margin: 0 auto;
+}
+
+/* FOOTER_SUB_MENU */
+.footer_sub_menu{
+    position: relative;
+    background-color: #282828;
+    padding: 10px;
+    z-index: 1;
+    top: 0;
+    width: 100%;
+}
+
+.footer_sub_menu .inner{
+    width: 900px;
+}
+
+.footer_sub_menu .inner .menu{
+    position: absolute;
+    left: 0;
+    height: 200px;
+    display: flex;
+    flex-wrap: nowrap;
+    margin: auto 0;
+    
+}
+
+.footer_sub_menu .inner .menu > li{
+    padding: 0 5px 0 5px;
+}
+
+.footer_sub_menu .inner .menu li:not(:last-child)::after {
+    content: "|";
+    font-size: 12px;
+    color: #c8c8c8;
+    margin-left: 7px;
+}
+
+.footer_sub_menu .inner .menu > li > a{
+    font-size: 10px;
+    color: white;
+}
+
+.footer_sub_menu .inner .menu li:first-child a{
+    font-size: 12px;
+    font-weight: bold;
+    color: #00b050;
+}
+
+.footer_sub_menu .inner .menu > li > a:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
